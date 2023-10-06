@@ -104,15 +104,33 @@ def punto_4(bf):
 
 
 def main():
+    print("1. Crear archivo binario")
+    print("2. Cargar por teclado un ticket")
+    print("3. Mostrar todos los datos de todos los registros")
+    print("4. Mostrar registros filtrando por patente")
+    print("5. Buscar si existe registro filtrando por código de ticket")
+    print("6. Mostrar cantidad de vehículos de cada combinación posible entre tipo de vehículo y país de cabina")
+    print("7. Mostrar cantidad total de vehículos contados por cada tipo de vehículo posible")
+    print("8. Calcular y mostrar distancia promedio desde la última cabina recorrida entre todos los vehículos")
     op = int(input('Ingrese opción: '))
     csv = "peajes-tp4.csv"
     binario = "tickets.dat"
     if op == 1:
         punto_1(csv, binario)
+    if op == 2:
+        pass
     if op == 3:
         punto_3(binario)
     if op == 4:
         punto_4(binario)
+    if op == 5:
+        pass
+    if op == 6:
+        pass
+    if op == 7:
+        pass
+    if op == 8:
+        pass
 
 
 if __name__ == "__main__":
