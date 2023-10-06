@@ -1,0 +1,119 @@
+import os.path
+import pickle
+from clase import *
+
+
+def punto_1(tf, bf):
+    if os.path.exists(tf):
+        print("Creando el archivo de registros...")
+        mt = open(tf, "rt")
+        ln = mt.readline()
+        ln = mt.readline()
+
+        mb = open(bf, "wb")
+        while True:
+            ln = mt.readline()
+
+            # control de eof...
+            if ln == "":
+                break
+
+            tokens = ln.split(",")
+            cod = int(tokens[0])
+            pat = tokens[1]
+            tiv = int(tokens[2])
+            fop = int(tokens[3])
+            pic = int(tokens[4])
+            dis = int(tokens[5])
+            tik = Ticket(cod, pat, tiv, fop, pic, dis)
+            pickle.dump(tik, mb)
+
+        mt.close()
+        mb.close()
+        print("Listo...")
+    else:
+        print("El archivo", tf, "no existe...")
+    print()
+
+
+def identificar_pais(pat):
+    lp = len(pat)
+
+    if lp < 6 or lp > 7:
+        return 'Otro'
+
+    if lp == 6:
+        if pat[0:4].isalpha() and pat[4:6].isdigit():
+            return 5
+
+        else:
+            return 6
+
+    if pat[0:2].isalpha() and pat[2:5].isdigit() and pat[5:7].isalpha():
+        return 0
+
+    if pat[0:2].isalpha() and pat[2:7].isdigit():
+        return 1
+
+    if pat[0:3].isalpha() and pat[3].isdigit() and pat[4].isalpha() and pat[5:7].isdigit():
+        return 2
+
+    if pat[0:4].isalpha() and pat[4:7].isdigit():
+        return 3
+
+    if pat[0:3].isalpha() and pat[3:7].isdigit():
+        return 4
+
+    return 6
+
+
+def punto_3(bf):
+    nombres_paises = ("Argentina", "Bolivia", "Brasil", "Paraguay", "Uruguay", "Chile", "Otro",)
+    if os.path.exists(bf):
+        mb = open(bf, "rb")
+        t = os.path.getsize(bf)
+        print("Listado de tickets...")
+        while mb.tell() < t:
+            r = pickle.load(mb)
+            pais = identificar_pais(r.patente)
+            print(r, " | PAIS DE LA PATENTE:", nombres_paises[pais])
+        mb.close()
+        print("Listo...")
+    else:
+        print("El archivo", bf, "no existe...")
+    print()
+
+
+def punto_4(bf):
+    cont = 0
+    if os.path.exists(bf):
+        p = input('Ingrese la petente que desea buscar: ')
+        mb = open(bf, "rb")
+        t = os.path.getsize(bf)
+        while mb.tell() < t:
+            r = pickle.load(mb)
+            if r.patente == p:
+                print(r)
+                cont += 1
+        print()
+        print('Total de patente encontradas: ', cont)
+        mb.close()
+    else:
+        print("El archivo", bf, "no existe...")
+    print()
+
+
+def main():
+    op = int(input('Ingrese opción: '))
+    csv = "peajes-tp4.csv"
+    binario = "tickets.dat"
+    if op == 1:
+        punto_1(csv, binario)
+    if op == 3:
+        punto_3(binario)
+    if op == 4:
+        punto_4(binario)
+
+
+if __name__ == "__main__":
+    main()
