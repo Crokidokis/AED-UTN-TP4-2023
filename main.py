@@ -45,7 +45,6 @@ def identificar_pais(pat):
     if lp == 6:
         if pat[0:4].isalpha() and pat[4:6].isdigit():
             return 5
-
         else:
             return 6
 
@@ -101,6 +100,53 @@ def punto_4(bf):
     else:
         print("El archivo", bf, "no existe...")
     print()
+def punto_5(bf):
+    if os.path.exists(bf):
+        c = int(input('Ingrese el código de ticket que desea buscar: '))
+        mb = open(bf, "rb")
+        t = os.path.getsize(bf)
+        registro_encontrado = False
+
+        while mb.tell() < t:
+            r = pickle.load(mb)
+            if r.codigo == c:
+                print("Registro encontrado:")
+                print(r)
+                registro_encontrado = True
+                break
+
+        mb.close()
+
+        if not registro_encontrado:
+            print("No se encontró un registro con el código de ticket:", c)
+
+    else:
+        print("El archivo", bf, "no existe.")
+    print()
+def punto_6(bf):
+    if os.path.exists(bf):
+        contador_combinaciones = [[0] * 5 for _ in range(3)]  # Matriz de conteo
+        mb = open(bf, "rb")
+        t = os.path.getsize(bf)
+
+        while mb.tell() < t:
+            r = pickle.load(mb)
+            contador_combinaciones[r.tipo_vehiculo][r.pais_cabina] += 1
+
+        mb.close()
+
+        nombres_paises = ("Argentina", "Bolivia", "Brasil", "Paraguay", "Uruguay", "Chile", "Otro")
+
+        # Mostrar la cantidad de vehículos por combinación
+        for tipo in range(3):
+            for pais in range(5):
+                cantidad = contador_combinaciones[tipo][pais]
+                if cantidad > 0:
+                    print(f"Tipo de Vehículo: {tipo}, País de Cabina: {nombres_paises[pais]}, Cantidad: {cantidad}")
+
+    else:
+        print("El archivo", bf, "no existe.")
+    print()
 
 
 def main():
@@ -124,9 +170,9 @@ def main():
     if op == 4:
         punto_4(binario)
     if op == 5:
-        pass
+        punto_5(binario)
     if op == 6:
-        pass
+        punto_6(binario)
     if op == 7:
         pass
     if op == 8:
