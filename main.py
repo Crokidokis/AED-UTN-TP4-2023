@@ -210,7 +210,38 @@ def punto_6(bf):
     return main()
 
 
+def punto_7(m):
+    c = 3
+    f = 5
+    cont_filas = [0] * c
+    for i in range(c):
+        for j in range(f):
+            cont_filas[i] += m[i][j]
+
+    cont_cols = [0] * f
+    for c in range(len(m[0])):
+        for f in range(len(m)):
+            cont_cols[c] += m[f][c]
+
+    return cont_filas, cont_cols
+
+
+def display(f,c):
+    tipo = 'Motocicleta', 'Automovil', 'Camión'
+    nombres_paises = ("Argentina", "Bolivia", "Brasil", "Paraguay", "Uruguay", "Chile", "Otro")
+    print()
+    print('=' * 100)
+    for i in range(len(f)):
+        print(f'Cantidad de vehículos del tipo {tipo[i]}: ', f[i])
+    print('=' * 100)
+    for j in range(len(c)):
+        print(f'Cantidad de vehículos que pasaron por la cabina de {nombres_paises[j]}: ', c[j])
+    print('=' * 100)
+    print()
+
+
 def main():
+    m = 0
     print("1. Crear archivo binario")
     print("2. Cargar por teclado un ticket")
     print("3. Mostrar todos los datos de todos los registros")
@@ -235,7 +266,11 @@ def main():
     if op == 6:
         punto_6(binario)
     if op == 7:
-        pass
+        if m == 0:
+            print('Primero debe crear la matriz de conteo')
+        else:
+            tot_filas, tot_cols = punto_7(m)
+            display(tot_filas, tot_cols)
     if op == 8:
         pass
 
