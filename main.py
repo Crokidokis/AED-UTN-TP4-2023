@@ -52,7 +52,7 @@ def punto_2(bf):
     with open(bf, "ab") as mb:
         pickle.dump(tik, mb)
     print("Ticket cargado con éxito.")
-
+    return main()
 
 def cargar_ticket_teclado():
     cod = int(input("Ingrese el código del ticket: "))
@@ -91,7 +91,7 @@ def identificar_pais(pat):
     lp = len(pat)
 
     if lp < 6 or lp > 7:
-        return 'Otro'
+        return 6
 
     if lp == 6:
         if pat[0:4].isalpha() and pat[4:6].isdigit():
@@ -114,7 +114,8 @@ def identificar_pais(pat):
     if pat[0:3].isalpha() and pat[3:7].isdigit():
         return 4
 
-    return 6
+    else:
+        return 6
 
 
 def punto_3(bf):
@@ -129,9 +130,14 @@ def punto_3(bf):
             print(r, " | PAIS DE LA PATENTE:", nombres_paises[pais])
         mb.close()
         print("Listo...")
+        op = int(input("¿Desea volver al Menú Principal (ingrese 1) o finalizar el Programa (ingrese cualquier valor distinto de 1)?: "))
+        if op == 1:
+            return main()
+        else:
+            print("Programa finalizado.")
     else:
-        print("El archivo", bf, "no existe...")
-    print()
+        print("El archivo", bf, "no existe, porfavor realize la carga.")
+        return main()
 
 
 def punto_4(bf):
@@ -213,7 +219,7 @@ def main():
     print("6. Mostrar cantidad de vehículos de cada combinación posible entre tipo de vehículo y país de cabina")
     print("7. Mostrar cantidad total de vehículos contados por cada tipo de vehículo posible")
     print("8. Calcular y mostrar distancia promedio desde la última cabina recorrida entre todos los vehículos")
-    op = int(input('Ingrese opción: '))
+    op = int(input('Ingrese su opción: '))
     csv = "peajes-tp4.csv"
     binario = "tickets.dat"
     if op == 1:
