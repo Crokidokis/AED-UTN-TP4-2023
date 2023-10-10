@@ -90,15 +90,6 @@ def cargar_ticket_teclado():
 def identificar_pais(pat):
     lp = len(pat)
 
-    if lp < 6 or lp > 7:
-        return 6
-
-    if lp == 6:
-        if pat[0:4].isalpha() and pat[4:6].isdigit():
-            return 5
-        else:
-            return 6
-
     if pat[0:2].isalpha() and pat[2:5].isdigit() and pat[5:7].isalpha():
         return 0
 
@@ -113,6 +104,15 @@ def identificar_pais(pat):
 
     if pat[0:3].isalpha() and pat[3:7].isdigit():
         return 4
+
+    if lp == 6:
+        if pat[0:4].isalpha() and pat[4:6].isdigit():
+            return 5
+        else:
+            return 6
+
+    if lp < 6 or lp > 7:
+        return 6
 
     else:
         return 6
