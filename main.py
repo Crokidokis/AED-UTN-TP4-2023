@@ -156,7 +156,7 @@ def punto_4(bf):
         mb.close()
     else:
         print("El archivo", bf, "no existe...")
-    print()
+    return main()
 
 
 def punto_5(bf):
@@ -181,7 +181,7 @@ def punto_5(bf):
 
     else:
         print("El archivo", bf, "no existe.")
-    print()
+    return main()
 
 
 def punto_6(bf):
@@ -207,7 +207,7 @@ def punto_6(bf):
 
     else:
         print("El archivo", bf, "no existe.")
-    print()
+    return main()
 
 
 def main():
