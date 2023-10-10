@@ -5,6 +5,16 @@ from clase import *
 
 def punto_1(tf, bf):
     if os.path.exists(tf):
+        if os.path.exists(bf):
+            print("Advertencia: Se creará un archivo nuevo y se perderán los registros viejos")
+            print("Ingrese 1 para continuar o 0 para cancelar la operación")
+            respuesta = int(input("Ingrese su opción: "))
+            if respuesta == 1:
+                print("Se eliminó el archivo de registros ya existente...")
+            else:
+                print("Operación cancelada.")
+                return main()
+
         print("Creando el archivo de registros...")
         mt = open(tf, "rt")
         ln = mt.readline()
@@ -21,11 +31,11 @@ def punto_1(tf, bf):
             tokens = ln.split(",")
             cod = int(tokens[0])
             pat = tokens[1]
-            tiv = int(tokens[2])
-            fop = int(tokens[3])
-            pic = int(tokens[4])
+            tipo = int(tokens[2])
+            pago = int(tokens[3])
+            cab = int(tokens[4])
             dis = int(tokens[5])
-            tik = Ticket(cod, pat, tiv, fop, pic, dis)
+            tik = Ticket(cod, pat, tipo, pago, cab, dis)
             pickle.dump(tik, mb)
 
         mt.close()
@@ -33,7 +43,48 @@ def punto_1(tf, bf):
         print("Listo...")
     else:
         print("El archivo", tf, "no existe...")
-    print()
+    return main()
+
+
+def punto_2(bf):
+    cod, pat, tipo, pago, cab, dis = cargar_ticket_teclado()
+    tik = Ticket(cod, pat, tipo, pago, cab, dis)
+    with open(bf, "ab") as mb:
+        pickle.dump(tik, mb)
+    print("Ticket cargado con éxito.")
+
+
+def cargar_ticket_teclado():
+    cod = int(input("Ingrese el código del ticket: "))
+    while cod <= 0:
+        print("El código ingresado debe ser mayor a 0")
+        cod = int(input("Ingrese el código del ticket: "))
+
+    pat = input("Ingrese la patente: ")
+
+    tipo = int(input("Ingrese el tipo de vehiculo (0: motocicleta, 1: automóvil, 2: camión): "))
+    while tipo not in [0, 1, 2]:
+        print("Digito erróneo, ingrese los indicados")
+        tipo = int(input("Ingrese el tipo de vehiculo (0: motocicleta, 1: automóvil, 2: camión): "))
+
+    pago = int(input("Ingrese la forma de pago (1: manual, 2 telepeaje): "))
+    while pago not in [1, 2]:
+        print("Digito erróneo, ingrese los indicados")
+        pago = int(input("Ingrese la forma de pago (1: manual, 2 telepeaje): "))
+
+    cab = int(input("Ingrese país de la cabina (0: Argentina - 1: Bolivia - 2: Brasil - 3: Paraguay - 4: "
+                    "Uruguay): "))
+    while cab not in [0, 1, 2, 3, 4]:
+        print("Digito erróneo, ingrese los indicados")
+        cab = int(input("Ingrese país de la cabina (0: Argentina - 1: Bolivia - 2: Brasil - 3: Paraguay - 4: "
+                        "Uruguay): "))
+
+    dis = int(input("Ingrese los kilómetros recorridos desde la cabina anterior (0 si es la primera cabina): "))
+    while dis < 0:
+        print("El kilometraje ingresado debe ser mayor o igual a 0")
+        dis = int(input("Ingrese los kilómetros recorridos desde la cabina anterior (0 si es la primera "
+                        "cabina): "))
+    return cod, pat, tipo, pago, cab, dis
 
 
 def identificar_pais(pat):
@@ -100,6 +151,8 @@ def punto_4(bf):
     else:
         print("El archivo", bf, "no existe...")
     print()
+
+
 def punto_5(bf):
     if os.path.exists(bf):
         c = int(input('Ingrese el código de ticket que desea buscar: '))
@@ -123,6 +176,8 @@ def punto_5(bf):
     else:
         print("El archivo", bf, "no existe.")
     print()
+
+
 def punto_6(bf):
     if os.path.exists(bf):
         contador_combinaciones = [[0] * 5 for _ in range(3)]  # Matriz de conteo
@@ -164,7 +219,7 @@ def main():
     if op == 1:
         punto_1(csv, binario)
     if op == 2:
-        pass
+        punto_2(binario)
     if op == 3:
         punto_3(binario)
     if op == 4:
