@@ -119,6 +119,7 @@ def identificar_pais(pat):
     else:
         return 6
 
+
 def punto_3(bf):
     nombres_paises = ("Argentina", "Bolivia", "Brasil", "Paraguay", "Uruguay", "Chile", "Otro",)
     if validacion_bf_existe(bf):
@@ -142,10 +143,19 @@ def punto_4(bf):
         while mb.tell() < t:
             r = pickle.load(mb)
             if r.patente == p:
+                print('REGISTRO ENCONTRADO:')
+                print('=' * 150)
                 print(r)
+                print('=' * 150)
                 cont += 1
         print()
-        print('Total de patente encontradas: ', cont)
+        if cont == 0:
+            print('No se encontró ningun registro con esa patente')
+
+        else:
+            print('Total de patente encontradas: ', cont)
+
+        print()
         mb.close()
 
 
@@ -159,15 +169,22 @@ def punto_5(bf):
         while mb.tell() < t:
             r = pickle.load(mb)
             if r.codigo == c:
-                print("Registro encontrado:")
+
+                print("REGISTRO ENCONTRADO:")
+                print('=' * 150)
                 print(r)
+                print('=' * 150)
+                print()
                 registro_encontrado = True
                 break
 
         mb.close()
 
         if not registro_encontrado:
+            print('=' * 150)
             print("No se encontró un registro con el código de ticket:", c)
+            print('=' * 150)
+            print()
 
 
 def punto_6(bf):
@@ -189,8 +206,11 @@ def punto_6(bf):
         for tipo in range(3):
             for pais in range(5):
                 cantidad = contador_combinaciones[tipo][pais]
+                print('=' * 200)
                 if cantidad > 0:
                     print(f"Tipo de Vehículo: {tipo}, País de Cabina: {nombres_paises[pais]}, Cantidad: {cantidad}")
+                print('=' * 200)
+                print()
 
         return contador_combinaciones
 
@@ -238,11 +258,14 @@ def punto_8(bf):
         promedio = acum / cont if cont > 0 else 0
         m.close()
         vector_mayor_promedio = arreglo_may_prome(bf, promedio)
-
+        print('=' * 200)
         for i in range(len(vector_mayor_promedio)):
             pais = identificar_pais(vector_mayor_promedio[i].patente)
             print(vector_mayor_promedio[i], " | PAIS DE LA PATENTE:", nombres_paises[pais])
-        print('El promedio fue: ', promedio, 'km')
+        print('=' * 200)
+        print('El promedio es: ', promedio, 'km')
+        print('=' * 200)
+        print()
 
 
 def arreglo_may_prome(bf, prom):
