@@ -3,6 +3,14 @@ import pickle
 from clase import *
 
 
+def validacion_bf_existe(bf):
+    if os.path.exists(bf):
+        pass
+    else:
+        print("El archivo ", bf, "no existe.")
+        return main()
+
+
 def punto_1(tf, bf):
     if os.path.exists(tf):
         if os.path.exists(bf):
@@ -241,6 +249,7 @@ def display(f,c):
 
 
 def punto_8(bf):
+    validacion_bf_existe(bf)
     nombres_paises = ("Argentina", "Bolivia", "Brasil", "Paraguay", "Uruguay", "Chile", "Otro",)
     m = open(bf, 'rb')
     t = os.path.getsize(bf)
