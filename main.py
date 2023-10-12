@@ -199,6 +199,8 @@ def punto_6(bf):
                 if cantidad > 0:
                     print(f"Tipo de Vehículo: {tipo}, País de Cabina: {nombres_paises[pais]}, Cantidad: {cantidad}")
 
+        return contador_combinaciones
+
 
 def punto_7(m):
     c = 3
@@ -280,48 +282,48 @@ def shell_sort(v):
 
 
 def main():
+    op = -1
     m = 0
-    print("1. Crear archivo binario")
-    print("2. Cargar por teclado un ticket")
-    print("3. Mostrar todos los datos de todos los registros")
-    print("4. Mostrar registros filtrando por patente")
-    print("5. Buscar si existe registro filtrando por código de ticket")
-    print("6. Mostrar cantidad de vehículos de cada combinación posible entre tipo de vehículo y país de cabina")
-    print("7. Mostrar cantidad total de vehículos contados por cada tipo de vehículo posible")
-    print("8. Calcular y mostrar distancia promedio desde la última cabina recorrida entre todos los vehículos")
-    op = int(input('Ingrese su opción: '))
-    csv = "peajes-tp4.csv"
-    binario = "tickets.dat"
-    if op == 1:
-        punto_1(csv, binario)
-        return main()
-    if op == 2:
-        punto_2(binario)
-        return main()
-    if op == 3:
-        punto_3(binario)
-        return main()
-    if op == 4:
-        punto_4(binario)
-        return main()
-    if op == 5:
-        punto_5(binario)
-        return main()
-    if op == 6:
-        punto_6(binario)
-        return main()
-    if op == 7:
-        if m == 0:
-            print('Primero debe crear la matriz de conteo (Punto 6)')
-            return main()
-        else:
-            tot_filas, tot_cols = punto_7(m)
-            display(tot_filas, tot_cols)
-            return main()
-    if op == 8:
-        punto_8(binario)
-        return main()
+    while op != 9:
+        print("1. Crear archivo binario")
+        print("2. Cargar por teclado un ticket")
+        print("3. Mostrar todos los datos de todos los registros")
+        print("4. Mostrar registros filtrando por patente")
+        print("5. Buscar si existe registro filtrando por código de ticket")
+        print("6. Mostrar cantidad de vehículos de cada combinación posible entre tipo de vehículo y país de cabina")
+        print("7. Mostrar cantidad total de vehículos contados por cada tipo de vehículo posible")
+        print("8. Calcular y mostrar distancia promedio desde la última cabina recorrida entre todos los vehículos")
+        print("9. Salir del programa")
+        op = int(input('Ingrese opción: '))
+        csv = "peajes-tp4.csv"
+        binario = "tickets.dat"
+        if op == 1:
+            punto_1(csv, binario)
+        if op == 2:
+            punto_2(binario)
+        if op == 3:
+            punto_3(binario)
+        if op == 4:
+            punto_4(binario)
+        if op == 5:
+            punto_5(binario)
+        if op == 6:
+            m = punto_6(binario)
+        if op == 7:
+            if m == 0:
+                print('Primero debe crear la matriz de conteo')
+            else:
+                tot_filas, tot_cols = punto_7(m)
+                display(tot_filas, tot_cols)
+        if op == 8:
+            punto_8(binario)
+        if op == 9:
+            print()
+            print('=' * 50)
+            print('Usted ha salido con éxito')
+            print('=' * 50)
 
 
 if __name__ == "__main__":
     main()
+
