@@ -3,6 +3,14 @@ import pickle
 from clase import *
 
 
+def validacion_bf_existe(bf):
+    if os.path.exists(bf):
+        pass
+    else:
+        print("El archivo ", bf, "no existe.")
+        return main()
+
+
 def punto_1(tf, bf):
     if os.path.exists(tf):
         if os.path.exists(bf):
@@ -241,6 +249,57 @@ def display(f,c):
     print()
 
 
+def punto_8(bf):
+    validacion_bf_existe(bf)
+    nombres_paises = ("Argentina", "Bolivia", "Brasil", "Paraguay", "Uruguay", "Chile", "Otro",)
+    m = open(bf, 'rb')
+    t = os.path.getsize(bf)
+    cont = acum = 0
+    while m.tell() < t:
+            r = pickle.load(m)
+            acum += r.km_recorridos
+            cont += 1
+    promedio = acum / cont if cont > 0 else 0
+    m.close()
+    vector_mayor_promedio = arreglo_may_prome(bf, promedio)
+
+    for i in range(len(vector_mayor_promedio)): # para mostrarlos listos
+        pais = identificar_pais(vector_mayor_promedio[i].patente)
+        print(vector_mayor_promedio[i], " | PAIS DE LA PATENTE:", nombres_paises[pais])
+    print('El promedio era: ', promedio, 'km')
+    return main()
+
+
+def arreglo_may_prome(bf, prom):
+    v = []
+    m = open(bf, 'rb')
+    t = os.path.getsize(bf)
+    while m.tell() < t:
+        r = pickle.load(m)
+        if r.km_recorridos > prom:
+            v.append(r)
+    m.close()
+    return shell_sort(v)
+
+
+def shell_sort(v, prom): # paso el promedio para no printiarlo primero y que se pierda al instante
+    nombres_paises = ("Argentina", "Bolivia", "Brasil", "Paraguay", "Uruguay", "Chile", "Otro",)
+    n = len(v)
+    h = 1
+    while h <= n // 9:
+        h = 3*h + 1
+    while h > 0:
+        for j in range(h, n):
+            y = v[j].km_recorridos
+            k = j - h
+            while k >= 0 and y < v[k].km_recorridos:
+                v[k+h].km_recorridos = v[k].km_recorridos
+                k -= h
+            v[k+h].km_recorridos = y
+        h //= 3
+    return v
+
+
 def main():
     m = 0
     print("1. Crear archivo binario")
@@ -273,7 +332,7 @@ def main():
             tot_filas, tot_cols = punto_7(m)
             display(tot_filas, tot_cols)
     if op == 8:
-        pass
+        punto_8(binario)
 
 
 if __name__ == "__main__":
