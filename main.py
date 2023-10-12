@@ -186,19 +186,20 @@ def punto_5(bf):
 
 def punto_6(bf):
     if os.path.exists(bf):
-        contador_combinaciones = [[0] * 5 for _ in range(3)]  # Matriz de conteo
+        contador_combinaciones = [[0] * 5 for _ in range(3)]
         mb = open(bf, "rb")
         t = os.path.getsize(bf)
 
         while mb.tell() < t:
             r = pickle.load(mb)
-            contador_combinaciones[r.tipo_vehiculo][r.pais_cabina] += 1
+            tipo = r.tipo
+            pais = r.pais_cabina
+            contador_combinaciones[tipo][pais] += 1
 
         mb.close()
 
-        nombres_paises = ("Argentina", "Bolivia", "Brasil", "Paraguay", "Uruguay", "Chile", "Otro")
+        nombres_paises = ("Argentina", "Bolivia", "Brasil", "Paraguay", "Uruguay")
 
-        # Mostrar la cantidad de vehículos por combinación
         for tipo in range(3):
             for pais in range(5):
                 cantidad = contador_combinaciones[tipo][pais]
