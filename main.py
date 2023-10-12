@@ -240,6 +240,53 @@ def display(f,c):
     print()
 
 
+def punto_8(bf):
+    m = open(bf, 'rb')
+    t = os.path.getsize(bf)
+    cont = acum = 0
+    while m.tell() < t:
+            r = pickle.load(m)
+            acum += r.km_recorridos
+            cont += 1
+    promedio = acum / cont
+    m.close()
+    arreglo_may_prome(bf, promedio)
+    #print('promedio: ', promedio, 'km')
+
+
+def arreglo_may_prome(bf, prom):
+    v = []
+    m = open(bf, 'rb')
+    t = os.path.getsize(bf)
+    while m.tell() < t:
+        r = pickle.load(m)
+        if r.km_recorridos > prom:
+            v.append(r)
+    m.close()
+    shell_sort(v, prom)
+
+
+def shell_sort(v, prom): # paso el promedio para no printiarlo primero y que se pierda al instante
+    nombres_paises = ("Argentina", "Bolivia", "Brasil", "Paraguay", "Uruguay", "Chile", "Otro",)
+    n = len(v)
+    h = 1
+    while h <= n // 9:
+        h = 3*h + 1
+    while h > 0:
+        for j in range(h, n):
+            y = v[j].km_recorridos
+            k = j - h
+            while k >= 0 and y < v[k].km_recorridos:
+                v[k+h].km_recorridos = v[k].km_recorridos
+                k -= h
+            v[k+h].km_recorridos = y
+        h //= 3
+    
+    for i in range(len(v)): # para mostrarlos listos
+        pais = identificar_pais(v[i].patente)
+        print(v[i], " | PAIS DE LA PATENTE:", nombres_paises[pais])
+    print('promedio: ', promedio, 'km') 
+
 def main():
     m = 0
     print("1. Crear archivo binario")
@@ -272,7 +319,7 @@ def main():
             tot_filas, tot_cols = punto_7(m)
             display(tot_filas, tot_cols)
     if op == 8:
-        pass
+        punto_8(binario)
 
 
 if __name__ == "__main__":
