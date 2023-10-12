@@ -249,7 +249,7 @@ def punto_8(bf):
             r = pickle.load(m)
             acum += r.km_recorridos
             cont += 1
-    promedio = acum / cont
+    promedio = acum / cont if cont > 0 else 0
     m.close()
     vector_mayor_promedio = arreglo_may_prome(bf, promedio)
 
