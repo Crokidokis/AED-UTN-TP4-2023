@@ -98,33 +98,26 @@ def cargar_ticket_teclado():
 def identificar_pais(pat):
     lp = len(pat)
 
-    if pat[0:2].isalpha() and pat[2:5].isdigit() and pat[5:7].isalpha():
-        return 0
-
-    if pat[0:2].isalpha() and pat[2:7].isdigit():
-        return 1
-
-    if pat[0:3].isalpha() and pat[3].isdigit() and pat[4].isalpha() and pat[5:7].isdigit():
-        return 2
-
-    if pat[0:4].isalpha() and pat[4:7].isdigit():
-        return 3
-
-    if pat[0:3].isalpha() and pat[3:7].isdigit():
-        return 4
-
-    if lp == 6:
+    if lp == 7:
+        if pat[0:2].isalpha() and pat[2:5].isdigit() and pat[5:7].isalpha():
+            return 0
+        elif pat[0:2].isalpha() and pat[2:7].isdigit():
+            return 1
+        elif pat[0:3].isalpha() and pat[3].isdigit() and pat[4].isalpha() and pat[5:7].isdigit():
+            return 2
+        elif pat[0:4].isalpha() and pat[4:7].isdigit():
+            return 3
+        elif pat[0:3].isalpha() and pat[3:7].isdigit():
+            return 4
+        else:
+            return 6
+    elif lp == 6:
         if pat[0:4].isalpha() and pat[4:6].isdigit():
             return 5
         else:
             return 6
-
-    if lp < 6 or lp > 7:
-        return 6
-
     else:
         return 6
-
 
 def punto_3(bf):
     nombres_paises = ("Argentina", "Bolivia", "Brasil", "Paraguay", "Uruguay", "Chile", "Otro",)
@@ -249,7 +242,7 @@ def punto_8(bf):
         for i in range(len(vector_mayor_promedio)):
             pais = identificar_pais(vector_mayor_promedio[i].patente)
             print(vector_mayor_promedio[i], " | PAIS DE LA PATENTE:", nombres_paises[pais])
-        print('El promedio era: ', promedio, 'km')
+        print('El promedio fue: ', promedio, 'km')
 
 
 def arreglo_may_prome(bf, prom):
