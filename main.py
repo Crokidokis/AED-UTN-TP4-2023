@@ -241,6 +241,7 @@ def display(f,c):
 
 
 def punto_8(bf):
+    nombres_paises = ("Argentina", "Bolivia", "Brasil", "Paraguay", "Uruguay", "Chile", "Otro",)
     m = open(bf, 'rb')
     t = os.path.getsize(bf)
     cont = acum = 0
@@ -250,8 +251,13 @@ def punto_8(bf):
             cont += 1
     promedio = acum / cont
     m.close()
-    arreglo_may_prome(bf, promedio)
-    #print('promedio: ', promedio, 'km')
+    vector_mayor_promedio = arreglo_may_prome(bf, promedio)
+
+    for i in range(len(vector_mayor_promedio)): # para mostrarlos listos
+        pais = identificar_pais(vector_mayor_promedio[i].patente)
+        print(vector_mayor_promedio[i], " | PAIS DE LA PATENTE:", nombres_paises[pais])
+    print('El promedio era: ', promedio, 'km')
+    return main()
 
 
 def arreglo_may_prome(bf, prom):
@@ -263,7 +269,7 @@ def arreglo_may_prome(bf, prom):
         if r.km_recorridos > prom:
             v.append(r)
     m.close()
-    shell_sort(v, prom)
+    return shell_sort(v)
 
 
 def shell_sort(v, prom): # paso el promedio para no printiarlo primero y que se pierda al instante
@@ -281,11 +287,8 @@ def shell_sort(v, prom): # paso el promedio para no printiarlo primero y que se 
                 k -= h
             v[k+h].km_recorridos = y
         h //= 3
-    
-    for i in range(len(v)): # para mostrarlos listos
-        pais = identificar_pais(v[i].patente)
-        print(v[i], " | PAIS DE LA PATENTE:", nombres_paises[pais])
-    print('promedio: ', promedio, 'km') 
+    return v
+
 
 def main():
     m = 0
