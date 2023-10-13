@@ -315,30 +315,31 @@ def main():
         binario = "tickets.dat"
         if op == 1:
             punto_1(csv, binario)
-        if op == 2:
+        elif op == 2:
             punto_2(binario)
-        if op == 3:
+        elif op == 3:
             punto_3(binario)
-        if op == 4:
+        elif op == 4:
             punto_4(binario)
-        if op == 5:
+        elif op == 5:
             punto_5(binario)
-        if op == 6:
+        elif op == 6:
             m = punto_6(binario)
-        if op == 7:
-            if m == 0 or m == None:
+        elif op == 7:
+            if m == 0 or m is None:
                 print('Primero debe crear la matriz de conteo')
             else:
                 tot_filas, tot_cols = punto_7(m)
                 display(tot_filas, tot_cols)
-        if op == 8:
+        elif op == 8:
             punto_8(binario)
-        if op == 9:
+        elif op == 9:
             print()
             print('=' * 50)
             print('Usted ha salido con éxito')
             print('=' * 50)
-
+        else:
+            print("Ingrese una opción correcta.")
 
 if __name__ == "__main__":
     main()
