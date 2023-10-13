@@ -55,11 +55,12 @@ def punto_1(tf, bf):
 
 
 def punto_2(bf):
-    cod, pat, tipo, pago, cab, dis = cargar_ticket_teclado()
-    tik = Ticket(cod, pat, tipo, pago, cab, dis)
-    with open(bf, "ab") as mb:
-        pickle.dump(tik, mb)
-    print("Ticket cargado con éxito.")
+    if validacion_bf_existe(bf):
+        cod, pat, tipo, pago, cab, dis = cargar_ticket_teclado()
+        tik = Ticket(cod, pat, tipo, pago, cab, dis)
+        with open(bf, "ab") as mb:
+            pickle.dump(tik, mb)
+        print("Ticket cargado con éxito.")
 
 
 def cargar_ticket_teclado():
@@ -248,15 +249,15 @@ def display(f, c):
 def punto_8(bf):
     if validacion_bf_existe(bf):
         nombres_paises = ("Argentina", "Bolivia", "Brasil", "Paraguay", "Uruguay", "Chile", "Otro",)
-        m = open(bf, 'rb')
+        mb = open(bf, 'rb')
         t = os.path.getsize(bf)
         cont = acum = 0
-        while m.tell() < t:
-            r = pickle.load(m)
+        while mb.tell() < t:
+            r = pickle.load(mb)
             acum += r.km_recorridos
             cont += 1
         promedio = acum / cont if cont > 0 else 0
-        m.close()
+        mb.close()
         vector_mayor_promedio = arreglo_may_prome(bf, promedio)
         print('=' * 200)
         for i in range(len(vector_mayor_promedio)):
@@ -270,13 +271,13 @@ def punto_8(bf):
 
 def arreglo_may_prome(bf, prom):
     v = []
-    m = open(bf, 'rb')
+    mb = open(bf, 'rb')
     t = os.path.getsize(bf)
-    while m.tell() < t:
-        r = pickle.load(m)
+    while mb.tell() < t:
+        r = pickle.load(mb)
         if r.km_recorridos > prom:
             v.append(r)
-    m.close()
+    mb.close()
     return shell_sort(v)
 
 
@@ -326,7 +327,7 @@ def main():
         if op == 6:
             m = punto_6(binario)
         if op == 7:
-            if m == 0:
+            if m == 0 or m == None:
                 print('Primero debe crear la matriz de conteo')
             else:
                 tot_filas, tot_cols = punto_7(m)
