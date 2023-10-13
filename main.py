@@ -169,7 +169,6 @@ def punto_5(bf):
         while mb.tell() < t:
             r = pickle.load(mb)
             if r.codigo == c:
-
                 print("REGISTRO ENCONTRADO:")
                 print('=' * 150)
                 print(r)
@@ -341,6 +340,6 @@ def main():
         else:
             print("Ingrese una opción correcta.")
 
+
 if __name__ == "__main__":
     main()
-
