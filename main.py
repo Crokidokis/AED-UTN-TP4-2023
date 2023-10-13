@@ -55,12 +55,11 @@ def punto_1(tf, bf):
 
 
 def punto_2(bf):
-    if validacion_bf_existe(bf):
-        cod, pat, tipo, pago, cab, dis = cargar_ticket_teclado()
-        tik = Ticket(cod, pat, tipo, pago, cab, dis)
-        with open(bf, "ab") as mb:
-            pickle.dump(tik, mb)
-        print("Ticket cargado con éxito.")
+    cod, pat, tipo, pago, cab, dis = cargar_ticket_teclado()
+    tik = Ticket(cod, pat, tipo, pago, cab, dis)
+    with open(bf, "ab") as mb:
+        pickle.dump(tik, mb)
+    print("Ticket cargado con éxito.")
 
 
 def cargar_ticket_teclado():
